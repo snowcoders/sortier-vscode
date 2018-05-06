@@ -12,4 +12,4 @@ Visual Studio Code extension that allows you to run
 
 ## Extension Settings
 #### sortier.onSave (default: false)
-Sort any supported file on save
+Runs sortier on save of any file

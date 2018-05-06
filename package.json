@@ -36,7 +36,7 @@
                     "sortier.onSave": {
                         "type": "boolean",
                         "default": false,
-                        "description": "Executes the sort command automatically on each save."
+                        "description": "Runs sortier on save"
                     }
                 }
             }
