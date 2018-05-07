@@ -29,7 +29,9 @@ export function activate(context: vscode.ExtensionContext) {
 
     const extensionName = 'sortier';
     if (vscode.workspace.getConfiguration(extensionName).get<Boolean>('onSave')) {
-        vscode.workspace.onDidSaveTextDocument(runSortier, false);
+        vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+            runSortier(document, false);
+        });
     };
 }
 
@@ -49,10 +51,9 @@ function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: bo
         format(document.fileName, options);
     }
     catch (e) {
-        if (messageIfFileNotSupported) {
-            if (e.message !== "File not supported") {
-                vscode.window.showErrorMessage("Sortier threw an error: " + e.message);
-            }
+        if (e.message === "File not supported" && !messageIfFileNotSupported) {
+            return;
         }
+        vscode.window.showErrorMessage("Sortier threw an error: " + e.message);
     }
 }
