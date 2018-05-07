@@ -4,8 +4,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import * as cosmiconfig from "cosmiconfig";
 import { format, ReprinterOptions } from "@snowcoders/sortier";
+import * as cosmiconfig from "cosmiconfig";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -22,12 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        try {
-            runSortier(editor.document);
-        }
-        catch (e) {
-            vscode.window.showErrorMessage("Sortier threw an error: " + e.message);
-        }
+        runSortier(editor.document);
     });
 
     context.subscriptions.push(disposable);
