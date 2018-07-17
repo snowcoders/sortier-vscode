@@ -4,7 +4,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import { format, ReprinterOptions } from "@snowcoders/sortier";
+import { format } from "@snowcoders/sortier";
 import * as cosmiconfig from "cosmiconfig";
 
 // this method is called when your extension is activated
@@ -46,7 +46,7 @@ function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: bo
         if (result == null) {
             console.log("No valid sortier config file found. Using defaults...");
         }
-        let options = result == null ? {} : result.config as ReprinterOptions;
+        let options = result == null ? {} : result.config;
 
         format(document.fileName, options);
     }
