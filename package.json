@@ -51,13 +51,13 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "mocha": "^4.0.1",
-        "chai": "^4.1.2",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.44",
-        "@types/chai": "^4.0.10"
+        "typescript": "2.9.2",
+        "vscode": "1.1.18",
+        "mocha": "4.1.0",
+        "chai": "4.1.2",
+        "@types/node": "7.0.67",
+        "@types/mocha": "2.2.48",
+        "@types/chai": "4.1.4"
     },
     "dependencies": {
         "@snowcoders/sortier": "^2.1.7",
