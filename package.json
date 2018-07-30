@@ -2,7 +2,7 @@
     "name": "sortier-vscode",
     "displayName": "Sortier",
     "description": "Visual Studio Code extension for Sortier",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "license": "MIT",
     "publisher": "Snowcoders",
     "engines": {
