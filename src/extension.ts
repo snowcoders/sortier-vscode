@@ -10,41 +10,29 @@ import * as cosmiconfig from "cosmiconfig";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-    try {
-        console.log("Activating sortier.run...");
-        // The command has been defined in the package.json file
-        // Now provide the implementation of the command with  registerCommand
-        // The commandId parameter must match the command field in package.json
-        let disposable = vscode.commands.registerCommand('sortier.run', () => {
-            // The code you place here will be executed every time your command is executed
-            var editor = vscode.window.activeTextEditor;
-            if (!editor) {
-                vscode.window.showInformationMessage('No open text editor');
-                return;
-            }
 
-            runSortier(editor.document);
+    // The command has been defined in the package.json file
+    // Now provide the implementation of the command with  registerCommand
+    // The commandId parameter must match the command field in package.json
+    let disposable = vscode.commands.registerCommand('sortier.run', () => {
+        // The code you place here will be executed every time your command is executed
+        var editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showInformationMessage('No open text editor');
+            return;
+        }
+
+        runSortier(editor.document);
+    });
+
+    context.subscriptions.push(disposable);
+
+    const extensionName = 'sortier';
+    if (vscode.workspace.getConfiguration(extensionName).get<Boolean>('onSave')) {
+        vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+            runSortier(document, false);
         });
-        context.subscriptions.push(disposable);
-    }
-    catch (e) {
-        console.log("Activating sortier.run - Failed");
-        throw e;
-    }
-
-    try {
-        console.log("Grabbing configuration...");
-        const extensionName = 'sortier';
-        if (vscode.workspace.getConfiguration(extensionName).get<Boolean>('onSave')) {
-            vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
-                runSortier(document, false);
-            });
-        };
-    }
-    catch (e) {
-        console.log("Grabbing configuration - Failed");
-        throw e;
-    }
+    };
 }
 
 // this method is called when your extension is deactivated
