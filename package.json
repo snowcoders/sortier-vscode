@@ -2,7 +2,7 @@
     "name": "sortier-vscode",
     "displayName": "Sortier",
     "description": "Visual Studio Code extension for Sortier",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "license": "MIT",
     "publisher": "Snowcoders",
     "engines": {
@@ -59,9 +59,9 @@
         "@types/chai": "4.1.5"
     },
     "dependencies": {
-        "@snowcoders/sortier": "^2.1.7",
+        "@snowcoders/sortier": "^2.1.9",
         "typescript": "3.0.3",
-        "cosmiconfig": "^5.0.1",
-        "ts-node": "^7.0.0"
+        "cosmiconfig": "^5.0.6",
+        "ts-node": "^7.0.1"
     }
 }
