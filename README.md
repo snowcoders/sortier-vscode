@@ -1,5 +1,5 @@
-<h1><center>Sortier for Visual Studio Code</center></h1>
-<h2><center>An opinionated Code Sorter</center></h2>
+# Sortier for Visual Studio Code
+An opinionated Code Sorter
 
 Sortier for Visual Studio Code is an extension that allows you to run 
 [Sortier](https://github.com/snowcoders/sortier) from the IDE
