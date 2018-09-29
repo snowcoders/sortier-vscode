@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        runSortier(editor.document);
+        findAndRunSortier(editor.document);
     });
 
     context.subscriptions.push(disposable);
@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
     const extensionName = 'sortier';
     if (vscode.workspace.getConfiguration(extensionName).get<Boolean>('onSave')) {
         vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
-            runSortier(document, false);
+            findAndRunSortier(document, false);
         });
     };
 }
@@ -39,7 +39,27 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
 }
 
-function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: boolean = true) {
+function findAndRunSortier(document: vscode.TextDocument, messageIfFileNotSupported: boolean = true) {
+    vscode.workspace.findFiles("package.json", '**/node_modules/**', 1).then((value) => {
+        if (value.length !== 0) {
+            let path = value[0].fsPath;
+            path = path.substring(0, path.length - "package.json".length) + "@snowcoders/sortier/dist";
+            path = vscode.workspace.asRelativePath(path);
+            import(path).then((value) => {
+                console.log("Found local sortier. Formatting...");
+                runSortier(document, messageIfFileNotSupported, value.format);
+            }).catch((reason) => {
+                console.log("Error loading local sortier, using bundled");
+                runSortier(document, messageIfFileNotSupported, format);
+            });
+        } else {
+            console.log("Didn't find local sortier, using bundled");
+            runSortier(document, messageIfFileNotSupported, format);
+        }
+    });
+}
+
+function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: boolean = true, formatFunc: typeof format) {
     try {
         const explorer = cosmiconfig("sortier");
         const result = explorer.searchSync(document.fileName);
@@ -48,7 +68,7 @@ function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: bo
         }
         let options = result == null ? {} : result.config;
 
-        format(document.fileName, options);
+        formatFunc(document.fileName, options);
     }
     catch (e) {
         if (e.message === "File not supported" && !messageIfFileNotSupported) {
