@@ -42,7 +42,7 @@ export function deactivate() {
 function runSortier(document: vscode.TextDocument, messageIfFileNotSupported: boolean = true) {
     try {
         const explorer = cosmiconfig("sortier");
-        const result = explorer.searchSync();
+        const result = explorer.searchSync(document.fileName);
         if (result == null) {
             console.log("No valid sortier config file found. Using defaults...");
         }
