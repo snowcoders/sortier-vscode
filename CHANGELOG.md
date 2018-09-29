@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.1.0]
+- Now loads local version of sortier before defaulting to packaged
+
+## [1.0.12]
+- Fixed sortier-vscode not reading local cosmiconfig settings
+
+## [1.0.11]
+- Upgraded sortier to fix issue with the sorting of Default specifiers
+
+## [1.0.10]
+- Upgraded sortier to fix issue regarding decorators
+
 ## [1.0.2]
 - Fixed change log
 
