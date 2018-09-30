@@ -43,15 +43,10 @@ function findAndRunSortier(document: vscode.TextDocument, messageIfFileNotSuppor
     vscode.workspace.findFiles("package.json", '**/node_modules/**', 1).then((value) => {
         if (value.length !== 0) {
             let path = value[0].fsPath;
-            path = path.substring(0, path.length - "package.json".length) + "@snowcoders/sortier/dist";
-            path = vscode.workspace.asRelativePath(path);
-            import(path).then((value) => {
-                console.log("Found local sortier. Formatting...");
-                runSortier(document, messageIfFileNotSupported, value.format);
-            }).catch((reason) => {
-                console.log("Error loading local sortier, using bundled");
-                runSortier(document, messageIfFileNotSupported, format);
-            });
+            path = path.substring(0, path.length - "package.json".length) + "node_modules\\@snowcoders\\sortier\\dist\\index.js";
+            let localSortier = require(path);
+            console.log("Found local sortier. Formatting...");
+            runSortier(document, messageIfFileNotSupported, localSortier.format);
         } else {
             console.log("Didn't find local sortier, using bundled");
             runSortier(document, messageIfFileNotSupported, format);
