@@ -44,13 +44,18 @@ function findAndRunSortier(document: vscode.TextDocument, messageIfFileNotSuppor
         if (value.length !== 0) {
             let path = value[0].fsPath;
             path = path.substring(0, path.length - "package.json".length) + "node_modules\\@snowcoders\\sortier\\dist\\index.js";
-            let localSortier = require(path);
-            console.log("Found local sortier. Formatting...");
-            runSortier(document, messageIfFileNotSupported, localSortier.format);
-        } else {
-            console.log("Didn't find local sortier, using bundled");
-            runSortier(document, messageIfFileNotSupported, format);
+            try {
+                let localSortier = require(path);
+                console.log("Found local sortier. Formatting...");
+                runSortier(document, messageIfFileNotSupported, localSortier.format);
+                return;
+            }
+            catch {
+            }
         }
+
+        console.log("Didn't find local sortier, using bundled");
+        runSortier(document, messageIfFileNotSupported, format);
     });
 }
 
