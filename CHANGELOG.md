@@ -1,7 +1,7 @@
 # Change Log
 
 ## [1.1.0]
-- Now loads local version of sortier before defaulting to packaged
+- Now loads local version of sortier before defaulting to packaged version
 
 ## [1.0.12]
 - Fixed sortier-vscode not reading local cosmiconfig settings
