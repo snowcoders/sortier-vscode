@@ -43,7 +43,13 @@ function findAndRunSortier(document: vscode.TextDocument, messageIfFileNotSuppor
     vscode.workspace.findFiles("package.json", '**/node_modules/**', 1).then((value) => {
         if (value.length !== 0) {
             let path = value[0].fsPath;
-            path = path.substring(0, path.length - "package.json".length) + "node_modules\\@snowcoders\\sortier\\dist\\index.js";
+            path = path.substring(0, path.length - "package.json".length);
+            if (path.indexOf("\\")) {
+                path = path + "node_modules\\@snowcoders\\sortier\\dist\\index.js";
+            }
+            else {
+                path = path + "node_modules/@snowcoders/sortier/dist/index.js";
+            }
             try {
                 let localSortier = require(path);
                 console.log("Found local sortier. Formatting...");
