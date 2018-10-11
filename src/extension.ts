@@ -44,7 +44,7 @@ function findAndRunSortier(document: vscode.TextDocument, messageIfFileNotSuppor
         if (value.length !== 0) {
             let path = value[0].fsPath;
             path = path.substring(0, path.length - "package.json".length);
-            if (path.indexOf("\\")) {
+            if (path.indexOf("\\") !== -1) {
                 path = path + "node_modules\\@snowcoders\\sortier\\dist\\index.js";
             }
             else {
