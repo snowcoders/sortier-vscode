@@ -48,7 +48,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "vsce": "vsce"
   },
   "devDependencies": {
     "@types/chai": "4.1.7",
@@ -57,7 +58,8 @@
     "@types/node": "7.10.1",
     "chai": "4.2.0",
     "mocha": "5.2.0",
-    "vscode": "1.1.21"
+    "vscode": "1.1.21",
+    "vsce": "1.53.0"
   },
   "dependencies": {
     "@snowcoders/sortier": "2.1.14",
