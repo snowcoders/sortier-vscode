@@ -1,5 +1,9 @@
 # Change Log
 
+## Unreleased
+
+- Added vsce as a dev dependency to reduce need of global install
+
 ## [1.1.2]
 
 - Updated sortier's packaged version
