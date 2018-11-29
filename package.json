@@ -58,7 +58,7 @@
     "@types/node": "7.10.2",
     "chai": "4.2.0",
     "mocha": "5.2.0",
-    "vscode": "1.1.21",
+    "vscode": "1.1.22",
     "vsce": "1.53.2"
   },
   "dependencies": {
