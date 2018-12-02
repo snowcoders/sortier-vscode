@@ -62,7 +62,7 @@
     "vsce": "1.53.2"
   },
   "dependencies": {
-    "@snowcoders/sortier": "2.2.0",
+    "@snowcoders/sortier": "2.3.1",
     "typescript": "3.2.1",
     "cosmiconfig": "5.0.7",
     "ts-node": "7.0.1"
