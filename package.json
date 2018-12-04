@@ -59,7 +59,7 @@
     "@types/estree": "0.0.39",
     "chai": "4.2.0",
     "mocha": "5.2.0",
-    "vscode": "1.1.22",
+    "vscode": "1.1.24",
     "vsce": "1.53.2"
   },
   "dependencies": {
