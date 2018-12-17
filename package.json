@@ -1,71 +1,75 @@
 {
-  "name": "sortier-vscode",
-  "displayName": "Sortier",
-  "description": "Visual Studio Code extension for Sortier",
-  "version": "1.2.0",
-  "license": "MIT",
-  "publisher": "Snowcoders",
-  "engines": {
-    "vscode": "^1.18.0"
-  },
+  "activationEvents": [
+    "*"
+  ],
   "bugs": {
     "url": "https://github.com/snowcoders/sortier-vscode/issues"
-  },
-  "homepage": "https://github.com/snowcoders/sortier-vscode",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/snowcoders/sortier-vscode.git"
   },
   "categories": [
     "Formatters"
   ],
-  "activationEvents": [
-    "*"
-  ],
-  "main": "./out/extension",
   "contributes": {
     "commands": [
       {
-        "command": "sortier.run",
         "category": "Sortier",
+        "command": "sortier.run",
         "title": "Run"
       }
     ],
     "configuration": [
       {
-        "title": "Sortier",
         "properties": {
           "sortier.onSave": {
-            "type": "boolean",
             "default": false,
-            "description": "Runs sortier on save"
+            "description": "Runs sortier on save",
+            "type": "boolean"
           }
-        }
+        },
+        "title": "Sortier"
       }
     ]
   },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "vsce": "vsce"
+  "dependencies": {
+    "@snowcoders/sortier": "2.3.2",
+    "cosmiconfig": "5.0.7",
+    "ts-node": "7.0.1",
+    "typescript": "3.2.1"
   },
+  "description": "Visual Studio Code extension for Sortier",
   "devDependencies": {
+    "@snowcoders/renovate-config": "0.2.0",
     "@types/chai": "4.1.7",
     "@types/cosmiconfig": "5.0.3",
+    "@types/estree": "0.0.39",
     "@types/mocha": "5.2.5",
     "@types/node": "7.10.2",
-    "@types/estree": "0.0.39",
     "chai": "4.2.0",
+    "husky": "1.2.1",
+    "lint-staged": "8.1.0",
     "mocha": "5.2.0",
-    "vscode": "1.1.22",
-    "vsce": "1.53.2"
+    "prettier": "1.15.3",
+    "vsce": "1.53.2",
+    "vscode": "1.1.22"
   },
-  "dependencies": {
-    "@snowcoders/sortier": "2.3.1",
-    "typescript": "3.2.1",
-    "cosmiconfig": "5.0.7",
-    "ts-node": "7.0.1"
-  }
+  "displayName": "Sortier",
+  "engines": {
+    "vscode": "^1.18.0"
+  },
+  "homepage": "https://github.com/snowcoders/sortier-vscode",
+  "license": "MIT",
+  "main": "./out/extension",
+  "name": "sortier-vscode",
+  "publisher": "Snowcoders",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowcoders/sortier-vscode.git"
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "vsce": "vsce",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
+  },
+  "version": "1.2.0"
 }
