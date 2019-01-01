@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@snowcoders/sortier": "2.3.2",
+    "@snowcoders/sortier": "2.5.0",
     "cosmiconfig": "5.0.7",
     "ts-node": "7.0.1",
     "typescript": "3.2.2"
