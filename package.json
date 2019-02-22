@@ -33,7 +33,7 @@
     "@snowcoders/sortier": "2.5.1",
     "cosmiconfig": "5.1.0",
     "ts-node": "8.0.2",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3333"
   },
   "description": "Visual Studio Code extension for Sortier",
   "devDependencies": {
