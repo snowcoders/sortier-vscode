@@ -49,7 +49,7 @@
     "mocha": "6.0.1",
     "prettier": "1.16.4",
     "vsce": "1.57.1",
-    "vscode": "1.1.29"
+    "vscode": "1.1.30"
   },
   "displayName": "Sortier",
   "engines": {
