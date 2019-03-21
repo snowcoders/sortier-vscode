@@ -1,5 +1,7 @@
 # Change Log
 
+- Upgraded to sortier 2.5.2
+
 ## 1.2.0
 
 - Added vsce as a dev dependency to reduce need of global install
