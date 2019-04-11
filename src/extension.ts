@@ -6,6 +6,7 @@ import * as vscode from "vscode";
 
 import { format } from "@snowcoders/sortier";
 import * as cosmiconfig from "cosmiconfig";
+import minimatch from "minimatch"
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -78,7 +79,13 @@ function runSortier(
     }
     let options = result == null ? {} : result.config;
 
-    formatFunc(document.fileName, options);
+    const fileName = document.fileName
+    const exclusions = vscode.workspace.getConfiguration(extensionName).get<Array>("exclude") || []
+    const shouldRun exclusions.reduce((shouldRun, excludeCandidate) => {
+      return shouldRun && minimatch(fileName, excludeCandidate)
+    }, true)
+    
+    if (shouldRun) formatFunc(document.fileName, options);
   } catch (e) {
     if (e.message === "File not supported" && !messageIfFileNotSupported) {
       return;
