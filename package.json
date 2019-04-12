@@ -19,6 +19,24 @@
     "configuration": [
       {
         "properties": {
+          "sortier.excludes": {
+            "default": [],
+            "description": "Array of glob patterns to exclude",
+            "items": {
+              "title": "Glob to exclude",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "sortier.includes": {
+            "default": [],
+            "description": "Array of glob patterns to include",
+            "items": {
+              "title": "Glob to include",
+              "type": "string"
+            },
+            "type": "array"
+          },
           "sortier.onSave": {
             "default": false,
             "description": "Runs sortier on save",
@@ -32,6 +50,8 @@
   "dependencies": {
     "@snowcoders/sortier": "2.5.2",
     "cosmiconfig": "5.2.0",
+    "globby": "^9.2.0",
+    "minimatch": "3.0.4",
     "ts-node": "8.0.3",
     "typescript": "3.4.3"
   },

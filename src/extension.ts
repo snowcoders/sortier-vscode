@@ -1,11 +1,12 @@
-"use strict";
-
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
+import vscode from "vscode";
 
 import { format } from "@snowcoders/sortier";
-import * as cosmiconfig from "cosmiconfig";
+import cosmiconfig from "cosmiconfig";
+import { Minimatch } from "minimatch";
+
+const extensionName = "sortier";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -26,7 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposable);
 
-  const extensionName = "sortier";
   if (vscode.workspace.getConfiguration(extensionName).get<Boolean>("onSave")) {
     vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
       findAndRunSortier(document, false);
@@ -41,6 +41,23 @@ function findAndRunSortier(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true
 ) {
+  const fileName = document.fileName;
+
+  let included = true;
+  const inclusions = vscode.workspace
+    .getConfiguration(extensionName)
+    .get<Array<string>>("includes");
+  if (inclusions != null && inclusions.length > 0) {
+    included = inclusions.reduce((matchStatus, includeCandidate) => {
+      let matcher = new Minimatch(includeCandidate);
+      return matchStatus || matcher.match(fileName);
+    }, false);
+  }
+
+  if (!included) {
+    return;
+  }
+
   vscode.workspace
     .findFiles("package.json", "**/node_modules/**", 1)
     .then(value => {
