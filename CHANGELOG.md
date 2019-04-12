@@ -1,5 +1,6 @@
 # Change Log
 
+- Added `includes` config option to limit the files that sortier runs on (Thanks @TikiTDO)
 - Upgraded to sortier 2.5.2
 
 ## 1.2.0

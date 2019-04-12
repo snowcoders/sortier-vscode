@@ -4,7 +4,7 @@ import vscode from "vscode";
 
 import { format } from "@snowcoders/sortier";
 import cosmiconfig from "cosmiconfig";
-import { Minimatch } from "minimatch";
+import micromatch from "micromatch";
 
 const extensionName = "sortier";
 
@@ -48,10 +48,8 @@ function findAndRunSortier(
     .getConfiguration(extensionName)
     .get<Array<string>>("includes");
   if (inclusions != null && inclusions.length > 0) {
-    included = inclusions.reduce((matchStatus, includeCandidate) => {
-      let matcher = new Minimatch(includeCandidate);
-      return matchStatus || matcher.match(fileName);
-    }, false);
+    let mic = micromatch;
+    included = mic.isMatch(fileName, inclusions);
   }
 
   if (!included) {
