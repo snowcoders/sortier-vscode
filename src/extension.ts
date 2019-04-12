@@ -80,12 +80,22 @@ function runSortier(
     let options = result == null ? {} : result.config;
 
     const fileName = document.fileName
-    const exclusions = vscode.workspace.getConfiguration(extensionName).get<Array>("exclude") || []
-    const shouldRun exclusions.reduce((shouldRun, excludeCandidate) => {
-      return shouldRun && minimatch(fileName, excludeCandidate)
+    const exclusions = vscode.workspace.getConfiguration(extensionName).get<Array>("excludes") || []
+    const inclusions = vscode.workspace.getConfiguration(extensionName).get<Array>("includes") || []
+   
+    // Determine if the current filename matches an exclusion pattern (This wins over includes)
+    const matchesExclusion = exclusions.reduce((matchStatus, excludeCandidate) => {
+      return matchStatus && minimatch(fileName, excludeCandidate)
     }, true)
     
-    if (shouldRun) formatFunc(document.fileName, options);
+    // Determine if the current filename matches an includsion pattern (This is checked if the exclude fails)
+    // Note, this defaults to true if no inclusions are specified
+    const defaultIncludeStatus = inclusions.length == 0
+    const matchesInclusion = inclusions.reduce((matchStatus, includeCandidate) => {
+      return matchStatus || minimatch(fileName, includeCandidate)
+    }, defaultIncludeStatus)
+    
+    if (!matchesExclusion && matchesInclusion) formatFunc(fileName, options);
   } catch (e) {
     if (e.message === "File not supported" && !messageIfFileNotSupported) {
       return;
