@@ -50,7 +50,6 @@
   "dependencies": {
     "@snowcoders/sortier": "2.5.2",
     "cosmiconfig": "5.2.0",
-    "globby": "^9.2.0",
     "minimatch": "3.0.4",
     "ts-node": "8.0.3",
     "typescript": "3.4.3"
