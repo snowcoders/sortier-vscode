@@ -23,6 +23,24 @@
             "default": false,
             "description": "Runs sortier on save",
             "type": "boolean"
+          },
+          "sortier.excludes": {
+            "default": [],
+            "description": "Array of glob patterns to exclude",
+            "items": {
+              "type": "string",
+              "title": "Glob to exclude"
+            },
+            "type": "array"
+          },
+          "sortier.includes": {
+            "default": [],
+            "description": "Array of glob patterns to include",
+            "items": {
+              "type": "string",
+              "title": "Glob to include"
+            },
+            "type": "array"
           }
         },
         "title": "Sortier"
