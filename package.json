@@ -19,9 +19,9 @@
     "configuration": [
       {
         "properties": {
-          "sortier.includes": {
+          "sortier.ignore": {
             "default": [],
-            "description": "Array of glob patterns to include",
+            "description": "Array of glob patterns to ignore",
             "items": {
               "title": "Glob to include",
               "type": "string"
@@ -41,9 +41,7 @@
   "dependencies": {
     "@snowcoders/sortier": "2.5.2",
     "cosmiconfig": "5.2.0",
-    "micromatch": "^4.0.1",
-    "ts-node": "8.0.3",
-    "typescript": "3.4.3"
+    "ignore": "^5.1.0"
   },
   "description": "Visual Studio Code extension for Sortier",
   "devDependencies": {
@@ -58,6 +56,8 @@
     "lint-staged": "8.1.5",
     "mocha": "6.0.2",
     "prettier": "1.16.4",
+    "ts-node": "8.0.3",
+    "typescript": "3.4.3",
     "vsce": "1.59.0",
     "vscode": "1.1.33"
   },

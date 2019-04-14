@@ -4,7 +4,7 @@ import vscode from "vscode";
 
 import { format } from "@snowcoders/sortier";
 import cosmiconfig from "cosmiconfig";
-import micromatch from "micromatch";
+import ignore from "ignore";
 
 const extensionName = "sortier";
 
@@ -43,16 +43,16 @@ function findAndRunSortier(
 ) {
   const fileName = document.fileName;
 
-  let included = true;
+  let ignored = true;
   const inclusions = vscode.workspace
     .getConfiguration(extensionName)
-    .get<Array<string>>("includes");
+    .get<Array<string>>("ignore");
   if (inclusions != null && inclusions.length > 0) {
-    let mic = micromatch;
-    included = mic.isMatch(fileName, inclusions);
+    const ig = ignore().add(inclusions);
+    ignored = ig.ignores(fileName);
   }
 
-  if (!included) {
+  if (ignored) {
     return;
   }
 
