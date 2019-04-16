@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.2
+
+- Upgraded to sortier 2.5.4
+
+## 1.2.1
+
 - Upgraded to sortier 2.5.2
 
 ## 1.2.0
