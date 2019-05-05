@@ -48,7 +48,7 @@
     "lint-staged": "8.1.6",
     "mocha": "6.1.4",
     "prettier": "1.17.0",
-    "vsce": "1.59.0",
+    "vsce": "1.61.0",
     "vscode": "1.1.33"
   },
   "displayName": "Sortier",
