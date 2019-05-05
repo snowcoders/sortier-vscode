@@ -45,7 +45,7 @@
     "@types/node": "11.13.8",
     "chai": "4.2.0",
     "husky": "2.2.0",
-    "lint-staged": "8.1.5",
+    "lint-staged": "8.1.6",
     "mocha": "6.1.4",
     "prettier": "1.17.0",
     "vsce": "1.59.0",
