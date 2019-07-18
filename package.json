@@ -46,7 +46,7 @@
     "chai": "4.2.0",
     "husky": "3.0.1",
     "lint-staged": "9.2.0",
-    "mocha": "6.1.4",
+    "mocha": "6.2.0",
     "prettier": "1.18.2",
     "vsce": "1.65.0",
     "vscode": "1.1.35"
