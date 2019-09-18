@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.4
+
+- Upgraded to sortier 3.0.0
+
 ## 1.2.3
 
 - Upgraded to sortier 2.6.1 which supports `.sortierignore` files

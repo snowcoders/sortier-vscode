@@ -4,7 +4,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import { format } from "@snowcoders/sortier";
+import { formatFile } from "@snowcoders/sortier";
 import * as cosmiconfig from "cosmiconfig";
 
 // this method is called when your extension is activated
@@ -54,21 +54,27 @@ function findAndRunSortier(
         }
         try {
           let localSortier = require(path);
-          console.log("Found local sortier. Formatting...");
-          runSortier(document, messageIfFileNotSupported, localSortier.format);
-          return;
+          if (localSortier.formatFile != null) {
+            console.log("Found local sortier. Formatting...");
+            runSortier(
+              document,
+              messageIfFileNotSupported,
+              localSortier.formatFile
+            );
+            return;
+          }
         } catch {}
       }
 
       console.log("Didn't find local sortier, using bundled");
-      runSortier(document, messageIfFileNotSupported, format);
+      runSortier(document, messageIfFileNotSupported, formatFile);
     });
 }
 
 function runSortier(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true,
-  formatFunc: typeof format
+  formatFunc: typeof formatFile
 ) {
   try {
     const explorer = cosmiconfig("sortier");
