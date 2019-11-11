@@ -1,5 +1,11 @@
 # Change Log
 
+## Unreleased
+
+- Updated cosmiconfig@6.0.0
+- Updated typescript@3.7.2
+- Updated sortier@3.0.1
+
 ## 1.2.4
 
 - Upgraded to sortier 3.0.0

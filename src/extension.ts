@@ -5,7 +5,7 @@
 import * as vscode from "vscode";
 
 import { formatFile } from "@snowcoders/sortier";
-import * as cosmiconfig from "cosmiconfig";
+import { cosmiconfigSync } from "cosmiconfig";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -77,8 +77,8 @@ function runSortier(
   formatFunc: typeof formatFile
 ) {
   try {
-    const explorer = cosmiconfig("sortier");
-    const result = explorer.searchSync(document.fileName);
+    const explorer = cosmiconfigSync("sortier");
+    const result = explorer.search(document.fileName);
     if (result == null) {
       console.log("No valid sortier config file found. Using defaults...");
     }

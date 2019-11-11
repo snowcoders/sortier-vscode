@@ -30,10 +30,10 @@
     ]
   },
   "dependencies": {
-    "@snowcoders/sortier": "3.0.0",
-    "cosmiconfig": "5.2.1",
+    "@snowcoders/sortier": "3.0.1",
+    "cosmiconfig": "6.0.0",
     "ts-node": "8.4.1",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "description": "Visual Studio Code extension for Sortier",
   "devDependencies": {
@@ -65,6 +65,7 @@
     "url": "https://github.com/snowcoders/sortier-vscode.git"
   },
   "scripts": {
+    "build": "npm run compile",
     "compile": "tsc -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "vsce": "vsce",
