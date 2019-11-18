@@ -42,7 +42,7 @@
     "@types/cosmiconfig": "5.0.3",
     "@types/estree": "0.0.39",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.12.8",
+    "@types/node": "12.12.9",
     "chai": "4.2.0",
     "husky": "3.1.0",
     "lint-staged": "9.4.3",
