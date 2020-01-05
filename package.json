@@ -37,7 +37,7 @@
   },
   "description": "Visual Studio Code extension for Sortier",
   "devDependencies": {
-    "@snowcoders/renovate-config": "1.0.4",
+    "@snowcoders/renovate-config": "1.0.5",
     "@types/chai": "4.2.7",
     "@types/cosmiconfig": "5.0.3",
     "@types/estree": "0.0.41",
