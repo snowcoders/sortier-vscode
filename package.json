@@ -44,7 +44,7 @@
     "@types/mocha": "7.0.1",
     "@types/node": "13.7.1",
     "chai": "4.2.0",
-    "husky": "4.2.1",
+    "husky": "4.2.2",
     "lint-staged": "10.0.7",
     "mocha": "7.0.1",
     "prettier": "1.19.1",
