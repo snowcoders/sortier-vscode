@@ -41,7 +41,7 @@
     "@types/chai": "4.2.10",
     "@types/cosmiconfig": "5.0.3",
     "@types/estree": "0.0.42",
-    "@types/mocha": "7.0.1",
+    "@types/mocha": "7.0.2",
     "@types/node": "13.7.7",
     "chai": "4.2.0",
     "husky": "4.2.3",
