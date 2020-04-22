@@ -47,7 +47,7 @@
     "husky": "4.2.5",
     "lint-staged": "10.1.7",
     "mocha": "7.1.1",
-    "prettier": "2.0.4",
+    "prettier": "2.0.5",
     "vsce": "1.75.0",
     "vscode": "1.1.36"
   },
