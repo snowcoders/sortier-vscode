@@ -1,6 +1,13 @@
 # Change Log
 
-## Unreleased
+## 1.2.6
+
+- Updated cosmiconfig@6.0.0
+- Updated typescript@3.8.3
+- Updated sortier@3.1.1
+- Added node_modules to .vscodeignore to reduce output
+
+## 1.2.5
 
 - Updated cosmiconfig@6.0.0
 - Updated typescript@3.7.2
