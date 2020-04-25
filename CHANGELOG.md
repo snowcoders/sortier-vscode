@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.7
+
+- Removed node_modules to .vscodeignore due to missing dependency
+
 ## 1.2.6
 
 - Updated cosmiconfig@6.0.0
