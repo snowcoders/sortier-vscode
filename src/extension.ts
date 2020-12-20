@@ -4,7 +4,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import { formatFile } from "@snowcoders/sortier";
+import { formatText } from "@snowcoders/sortier";
 import { cosmiconfigSync } from "cosmiconfig";
 
 // this method is called when your extension is activated
@@ -21,7 +21,20 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    findAndRunSortier(editor.document);
+    findAndRunSortier(editor.document, true).then((newText) => {
+      const oldText = editor.document.getText();
+      if (newText == null || oldText === newText) {
+        return;
+      }
+
+      editor.edit((editBuilder) => {
+        const replaceRange = new vscode.Range(
+          editor.document.positionAt(0),
+          editor.document.positionAt(editor.document.getText().length)
+        );
+        editBuilder.replace(replaceRange, newText);
+      });
+    });
   });
 
   context.subscriptions.push(disposable);
@@ -40,10 +53,10 @@ export function deactivate() {}
 function findAndRunSortier(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true
-) {
-  vscode.workspace
+): Thenable<string> {
+  return vscode.workspace
     .findFiles("package.json", "**/node_modules/**", 1)
-    .then(value => {
+    .then((value) => {
       if (value.length !== 0) {
         let path = value[0].fsPath;
         path = path.substring(0, path.length - "package.json".length);
@@ -56,26 +69,29 @@ function findAndRunSortier(
           let localSortier = require(path);
           if (localSortier.formatFile != null) {
             console.log("Found local sortier. Formatting...");
-            runSortier(
+            return getSortedDocumentText(
               document,
               messageIfFileNotSupported,
-              localSortier.formatFile
+              localSortier.formatText
             );
-            return;
           }
         } catch {}
       }
 
       console.log("Didn't find local sortier, using bundled");
-      runSortier(document, messageIfFileNotSupported, formatFile);
+      return getSortedDocumentText(
+        document,
+        messageIfFileNotSupported,
+        formatText
+      );
     });
 }
 
-function runSortier(
+function getSortedDocumentText(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true,
-  formatFunc: typeof formatFile
-) {
+  formatFunc: typeof formatText
+): string {
   try {
     const explorer = cosmiconfigSync("sortier");
     const result = explorer.search(document.fileName);
@@ -83,12 +99,48 @@ function runSortier(
       console.log("No valid sortier config file found. Using defaults...");
     }
     let options = result == null ? {} : result.config;
+    const fileExtension = getFileExtension(document);
 
-    formatFunc(document.fileName, options);
+    const formatted = formatFunc(fileExtension, document.getText(), options);
+    if (formatted == null) {
+      throw new Error("File not supported");
+    }
+    return formatted;
   } catch (e) {
     if (e.message === "File not supported" && !messageIfFileNotSupported) {
       return;
     }
     vscode.window.showErrorMessage("Sortier threw an error: " + e.message);
+  }
+}
+
+function getFileExtension(document: vscode.TextDocument) {
+  // First if it's an existing document, just use the extension
+  const { fileName, languageId } = document;
+  if (fileName && fileName.indexOf(".") !== -1) {
+    return fileName.substr(fileName.lastIndexOf(".") + 1);
+  }
+
+  // Otherwise try and get it from the language id
+  switch (languageId) {
+    case "javascript": {
+      return "js";
+    }
+    case "javascriptreact":
+    case "jsx": {
+      return "jsx";
+    }
+    case "json":
+    case "jsonc": {
+      return "json";
+    }
+    case "typescript": {
+      return "ts";
+    }
+    case "typescriptreact": {
+      return "tsx";
+    }
+    default:
+      return languageId;
   }
 }
