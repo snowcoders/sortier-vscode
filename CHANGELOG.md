@@ -1,5 +1,10 @@
 # Change Log
 
+## Unreleased
+
+- Updated sortier@3.2.0
+- Enabled sortier to run on unsaved files basing it off the language selected via VS Code
+
 ## 1.2.7
 
 - Removed node_modules to .vscodeignore due to missing dependency
