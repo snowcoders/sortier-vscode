@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.3.0
+
 - Updated sortier@3.2.0
 - Enabled sortier to run on unsaved files basing it off the language selected via VS Code
 
