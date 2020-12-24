@@ -1,6 +1,6 @@
 # Change Log
 
-## Unreleased
+## 1.3.1
 
 - Fixed running sortier on save
 
