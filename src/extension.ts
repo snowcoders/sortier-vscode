@@ -4,7 +4,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
-import { formatText } from "@snowcoders/sortier";
+import * as Sortier from "@snowcoders/sortier";
 import { cosmiconfigSync } from "cosmiconfig";
 
 // this method is called when your extension is activated
@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    findAndRunSortier(editor.document, true).then((newText) => {
+    getSortedText(editor.document, true).then((newText) => {
       const oldText = editor.document.getText();
       if (newText == null || oldText === newText) {
         return;
@@ -42,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
   const extensionName = "sortier";
   if (vscode.workspace.getConfiguration(extensionName).get<Boolean>("onSave")) {
     vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
-      findAndRunSortier(document, false);
+      sortDocument(document);
     });
   }
 }
@@ -50,10 +50,29 @@ export function activate(context: vscode.ExtensionContext) {
 // this method is called when your extension is deactivated
 export function deactivate() {}
 
-function findAndRunSortier(
+function getSortedText(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true
 ): Thenable<string> {
+  return findSortier().then((sortier) => {
+    return getSortedDocumentText(
+      document,
+      messageIfFileNotSupported,
+      sortier.formatText
+    );
+  });
+}
+
+function sortDocument(document: vscode.TextDocument): Thenable<void> {
+  return findSortier().then((sortier) => {
+    const options = getSortierOptions(document);
+    try {
+      sortier.formatFile(document.fileName, options);
+    } catch {}
+  });
+}
+
+function findSortier(): Thenable<typeof Sortier> {
   return vscode.workspace
     .findFiles("package.json", "**/node_modules/**", 1)
     .then((value) => {
@@ -67,38 +86,22 @@ function findAndRunSortier(
         }
         try {
           let localSortier = require(path);
-          if (localSortier.formatFile != null) {
-            console.log("Found local sortier. Formatting...");
-            return getSortedDocumentText(
-              document,
-              messageIfFileNotSupported,
-              localSortier.formatText
-            );
-          }
+          return localSortier;
         } catch {}
       }
 
       console.log("Didn't find local sortier, using bundled");
-      return getSortedDocumentText(
-        document,
-        messageIfFileNotSupported,
-        formatText
-      );
+      return Sortier;
     });
 }
 
 function getSortedDocumentText(
   document: vscode.TextDocument,
   messageIfFileNotSupported: boolean = true,
-  formatFunc: typeof formatText
+  formatFunc: typeof Sortier.formatText
 ): string {
   try {
-    const explorer = cosmiconfigSync("sortier");
-    const result = explorer.search(document.fileName);
-    if (result == null) {
-      console.log("No valid sortier config file found. Using defaults...");
-    }
-    let options = result == null ? {} : result.config;
+    let options = getSortierOptions(document);
     const fileExtension = getFileExtension(document);
 
     const formatted = formatFunc(fileExtension, document.getText(), options);
@@ -112,6 +115,16 @@ function getSortedDocumentText(
     }
     vscode.window.showErrorMessage("Sortier threw an error: " + e.message);
   }
+}
+
+function getSortierOptions(document: vscode.TextDocument) {
+  const explorer = cosmiconfigSync("sortier");
+  const result = explorer.search(document.fileName);
+  if (result == null) {
+    console.log("No valid sortier config file found. Using defaults...");
+  }
+  let options = result == null ? {} : result.config;
+  return options;
 }
 
 function getFileExtension(document: vscode.TextDocument) {

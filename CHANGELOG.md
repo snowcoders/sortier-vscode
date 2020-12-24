@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fixed running sortier on save
+
 ## 1.3.0
 
 - Updated sortier@3.2.0
