@@ -40,7 +40,7 @@
     "@snowcoders/renovate-config": "2.0.2",
     "@types/chai": "4.2.14",
     "@types/cosmiconfig": "5.0.3",
-    "@types/estree": "0.0.45",
+    "@types/estree": "0.0.46",
     "@types/mocha": "8.2.0",
     "@types/node": "14.14.20",
     "chai": "4.2.0",
