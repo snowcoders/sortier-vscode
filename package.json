@@ -53,7 +53,7 @@
   },
   "displayName": "Sortier",
   "engines": {
-    "vscode": "^1.18.0"
+    "vscode": "^1.999.0"
   },
   "homepage": "https://github.com/snowcoders/sortier-vscode",
   "license": "MIT",
