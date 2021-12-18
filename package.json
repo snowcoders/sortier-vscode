@@ -40,8 +40,8 @@
     "lint-staged": "12.1.2",
     "prettier": "2.5.1",
     "rimraf": "3.0.2",
-    "sortier": "1.0.0-beta.8",
-    "typescript": "4.6.0-dev.20211206",
+    "sortier": "1.0.0-beta.12",
+    "typescript": "4.5.4",
     "vsce": "2.5.1",
     "vscode": "1.1.37"
   },

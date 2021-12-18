@@ -5,9 +5,7 @@
 import * as vscode from "vscode";
 
 import { readFileSync } from "fs";
-import { formatText } from "sortier/format-text";
-import { isIgnored } from "sortier/is-ignored";
-import { resolveOptions } from "sortier/resolve-options";
+import { formatText, isIgnored, resolveOptions } from "sortier";
 
 type SortierFunctions = {
   formatText: typeof formatText;
@@ -24,7 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand("sortier.run", () => {
     // The code you place here will be executed every time your command is executed
-    return sortDocument(vscode.window.activeTextEditor.document, false);
+    var editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      vscode.window.showInformationMessage(
+        "No active document. Nothing was sorted."
+      );
+      return;
+    }
+    return sortDocument(editor.document, false);
   });
 
   context.subscriptions.push(disposable);
@@ -48,7 +53,7 @@ function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
 
     didSaveTextDisposable = vscode.workspace.onDidSaveTextDocument(
       (document: vscode.TextDocument) => {
-        sortDocument(document, true);
+        return sortDocument(document, true);
       }
     );
     context.subscriptions.push(didSaveTextDisposable);
@@ -86,8 +91,21 @@ async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
       }
     });
   } catch (e) {
+    if (!isOnSave) {
+      vscode.window.showInformationMessage(getStringFromThrown(e));
+    }
     return;
   }
+}
+
+function getStringFromThrown(e: unknown) {
+  if (e instanceof Error) {
+    return e.message;
+  }
+  if (typeof e === "string") {
+    return e;
+  }
+  return JSON.stringify(e);
 }
 
 function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
