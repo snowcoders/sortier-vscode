@@ -1,31 +1,30 @@
 // A launch configuration that compiles the extension and then opens it inside a new window
+// Use IntelliSense to learn about possible attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 {
-  "version": "0.1.0",
   "configurations": [
     {
-      "name": "Extension",
-      "type": "extensionHost",
+      "args": [
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}"
+      ],
+      "name": "Run Extension",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "preLaunchTask": "npm: build",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-      "stopOnEntry": false,
-      "sourceMaps": true,
-      "outFiles": ["${workspaceRoot}/out/*.js"],
-      "preLaunchTask": "npm: watch"
+      "type": "extensionHost"
     },
     {
-      "name": "Extension Tests",
-      "type": "extensionHost",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "name": "Run Extension (With Other Extensions)",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "preLaunchTask": "npm: build",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceRoot}",
-        "--extensionTestsPath=${workspaceRoot}/out/test"
-      ],
-      "stopOnEntry": false,
-      "sourceMaps": true,
-      "outFiles": ["${workspaceRoot}/out/test/*.js"],
-      "preLaunchTask": "npm: watch"
+      "type": "extensionHost"
     }
-  ]
+  ],
+  "version": "0.2.0"
 }
