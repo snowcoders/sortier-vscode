@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fixed 'Command: Sortier Run' resulted in an error
+
 ## [2.0.0] - 2021-12-19
 
 - Migrated our sortier dependency from `@snowcoders/sortier` to `sortier`. If you have a local installation, please migrate.
