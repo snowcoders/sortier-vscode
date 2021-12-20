@@ -35,6 +35,7 @@
   "devDependencies": {
     "@snowcoders/renovate-config": "2.0.3",
     "@types/estree": "0.0.50",
+    "changelog-updater": "2.0.2",
     "esbuild": "0.14.2",
     "husky": "7.0.4",
     "lint-staged": "12.1.2",
@@ -71,8 +72,9 @@
     "lint": "eslint . --ext .ts,.tsx",
     "prepare": "husky install",
     "test": "echo test",
+    "version": "changelog-updater && git add .",
     "vsce": "vsce",
-    "vscode:prepublish": "npm run build -- --minify",
+    "vscode:prepublish": "npm run clean && npm run build -- --minify",
     "watch": "npm run build:base -- --sourcemap --watch"
   },
   "version": "2.0.0"
