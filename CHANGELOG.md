@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-12-19
+
 - Migrated our sortier dependency from `@snowcoders/sortier` to `sortier`. If you have a local installation, please migrate.
 - Fixed running sortier manually on a file that is ignored now sorts the file (because you explicitly requested it to be sorted)
 - Now listens to configuration changes so no need to restart VS Code on configuration change
