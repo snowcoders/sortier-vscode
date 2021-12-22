@@ -75,5 +75,5 @@
     "vscode:prepublish": "npm run build -- --minify",
     "watch": "npm run build:base -- --sourcemap --watch"
   },
-  "version": "2.0.1"
+  "version": "2.0.2"
 }
