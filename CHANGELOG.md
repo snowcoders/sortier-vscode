@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2021-12-23
+
+- Fixed crash issue on plugin load
+
 ## [2.0.2] - 2021-12-21
 
 - Updated sortier to 1.0.1
