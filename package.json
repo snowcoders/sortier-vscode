@@ -36,14 +36,14 @@
   "devDependencies": {
     "@snowcoders/renovate-config": "2.0.3",
     "@types/estree": "0.0.50",
+    "@types/vscode": "1.63.1",
     "esbuild": "0.14.8",
     "husky": "7.0.4",
     "lint-staged": "12.1.4",
     "prettier": "2.5.1",
     "rimraf": "3.0.2",
     "sortier": "1.0.1",
-    "vsce": "2.5.3",
-    "vscode": "1.1.37"
+    "vsce": "2.5.3"
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
