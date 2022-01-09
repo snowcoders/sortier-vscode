@@ -37,7 +37,7 @@
     "@snowcoders/renovate-config": "2.0.3",
     "@types/estree": "0.0.50",
     "@types/vscode": "1.63.1",
-    "esbuild": "0.14.10",
+    "esbuild": "0.14.11",
     "husky": "7.0.4",
     "lint-staged": "12.1.7",
     "prettier": "2.5.1",
