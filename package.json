@@ -39,7 +39,7 @@
     "@types/vscode": "1.65.0",
     "esbuild": "0.14.25",
     "husky": "7.0.4",
-    "lint-staged": "12.3.4",
+    "lint-staged": "12.3.5",
     "prettier": "2.5.1",
     "rimraf": "3.0.2",
     "sortier": "1.0.1",
