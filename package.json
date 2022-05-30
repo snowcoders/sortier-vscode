@@ -43,7 +43,7 @@
     "prettier": "2.6.2",
     "rimraf": "3.0.2",
     "sortier": "1.0.1",
-    "vsce": "2.8.0"
+    "vsce": "2.9.0"
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
