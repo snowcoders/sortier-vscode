@@ -36,7 +36,7 @@
   "devDependencies": {
     "@snowcoders/renovate-config": "2.0.3",
     "@types/estree": "1.0.0",
-    "@types/vscode": "1.69.1",
+    "@types/vscode": "1.70.0",
     "esbuild": "0.14.53",
     "husky": "7.0.4",
     "lint-staged": "13.0.3",
