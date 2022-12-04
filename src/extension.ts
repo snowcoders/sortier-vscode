@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
   loadOnSaveConfiguration(context);
 }
 
-let didSaveTextDisposable: vscode.Disposable;
+let didSaveTextDisposable: vscode.Disposable | null;
 function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
   const runOnSave = vscode.workspace
     .getConfiguration(extensionName)
@@ -67,6 +67,12 @@ function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
 
 async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
   const sortier = await findSortier();
+  if (sortier == null) {
+    vscode.window.showInformationMessage(
+      "Unable to find sortier instance to use"
+    );
+    return;
+  }
   try {
     if (isOnSave && (await isDocumentIgnored(sortier, document))) {
       return;
@@ -119,7 +125,7 @@ function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
 function isDocumentIgnored(
   sortier: SortierFunctions,
   document: vscode.TextDocument
-): vscode.Thenable<boolean> {
+): vscode.ProviderResult<boolean> {
   const uri = document.uri || vscode.workspace.workspaceFolders?.[0].uri;
   const relativeFilePath = vscode.workspace.asRelativePath(uri);
 
@@ -146,7 +152,7 @@ function getResolveOptionsForDocument(
   return options;
 }
 
-function findSortier(): vscode.Thenable<SortierFunctions> {
+function findSortier(): vscode.ProviderResult<SortierFunctions> {
   return vscode.workspace
     .findFiles("**/node_modules/sortier/dist/index.js")
     .then((fileMatches) => {
