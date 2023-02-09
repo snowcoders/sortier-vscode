@@ -9,10 +9,10 @@
       },
       "isBackground": true,
       "presentation": {
-        "reveal": "silent"
+        "reveal": "never"
       },
       "problemMatcher": "$tsc-watch",
-      "script": "compile",
+      "script": "watch",
       "type": "npm"
     }
   ],

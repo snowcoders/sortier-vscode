@@ -1,6 +1,7 @@
 {
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:sortier.run"
   ],
   "bugs": {
     "url": "https://github.com/sortier/sortier-vscode/issues"
@@ -28,26 +29,30 @@
       "type": "object"
     }
   },
-  "dependencies": {
-    "@types/node": "^18.0.0",
-    "typescript": "^4.0.0"
-  },
   "description": "Code sorting via sortier",
   "devDependencies": {
-    "@snowcoders/renovate-config": "2.0.3",
+    "@snowcoders/renovate-config": "3.0.0-beta.13",
     "@types/estree": "1.0.0",
+    "@types/node": "18.0.0",
     "@types/vscode": "1.75.0",
+    "@typescript-eslint/eslint-plugin": "5.51.0",
+    "@typescript-eslint/parser": "5.51.0",
+    "@vscode/vsce": "2.17.0",
     "esbuild": "0.17.6",
-    "husky": "7.0.4",
+    "eslint": "8.33.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "4.2.1",
+    "husky": "8.0.3",
     "lint-staged": "13.1.1",
     "prettier": "2.8.4",
     "rimraf": "4.1.2",
-    "sortier": "1.0.1",
-    "vsce": "2.15.0"
+    "sortier": "2.0.0-beta.0",
+    "typescript": "4.9.5"
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.73.0"
   },
   "homepage": "https://github.com/snowcoders/sortier-vscode",
   "keywords": [
@@ -57,7 +62,7 @@
     "sorting"
   ],
   "license": "MIT",
-  "main": "./dist/extension",
+  "main": "./dist/extension.js",
   "name": "sortier-vscode",
   "publisher": "Snowcoders",
   "repository": {
@@ -65,15 +70,17 @@
     "url": "https://github.com/snowcoders/sortier-vscode.git"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:base -- --sourcemap",
-    "build:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:typescript --format=cjs --platform=node",
+    "build": "npm run compile",
     "clean": "rimraf dist",
-    "lint": "eslint . --ext .ts,.tsx",
-    "prepare": "husky install",
-    "test": "echo test",
-    "vsce": "vsce",
-    "vscode:prepublish": "npm run build -- --minify",
-    "watch": "npm run build:base -- --sourcemap --watch"
+    "compile": "tsc -p ./",
+    "husky:commit-msg": "echo 'No commitlint installed'",
+    "husky:pre-commit": "npx --no lint-staged",
+    "husky:pre-push": "npm run test",
+    "lint": "eslint src --ext ts",
+    "prepare": "npm run clean && npm run build && npx --no-install husky install",
+    "test": "echo 'No tests, be sure to run manual tests'",
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
   },
   "version": "2.0.3"
 }

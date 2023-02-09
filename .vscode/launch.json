@@ -5,24 +5,22 @@
 {
   "configurations": [
     {
-      "args": [
-        "--disable-extensions",
-        "--extensionDevelopmentPath=${workspaceFolder}"
-      ],
+      "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"],
       "name": "Run Extension",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "npm: build",
+      "preLaunchTask": "${defaultBuildTask}",
       "request": "launch",
-      "runtimeExecutable": "${execPath}",
       "type": "extensionHost"
     },
     {
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "name": "Run Extension (With Other Extensions)",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "npm: build",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/dist/test/suite/index"
+      ],
+      "name": "Extension Tests",
+      "outFiles": ["${workspaceFolder}/dist/test/**/*.js"],
+      "preLaunchTask": "${defaultBuildTask}",
       "request": "launch",
-      "runtimeExecutable": "${execPath}",
       "type": "extensionHost"
     }
   ],
