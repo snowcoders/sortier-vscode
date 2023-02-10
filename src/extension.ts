@@ -22,9 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The code you place here will be executed every time your command is executed
     var editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showInformationMessage(
-        "No active document. Nothing was sorted."
-      );
+      vscode.window.showInformationMessage("No active document. Nothing was sorted.");
       return;
     }
     return sortDocument(editor.document, false);
@@ -38,22 +36,18 @@ export function activate(context: vscode.ExtensionContext) {
   loadOnSaveConfiguration(context);
 }
 
-let didSaveTextDisposable: vscode.Disposable | null;
+let didSaveTextDisposable: null | vscode.Disposable;
 function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
-  const runOnSave = vscode.workspace
-    .getConfiguration(extensionName)
-    .get<Boolean>("onSave");
+  const runOnSave = vscode.workspace.getConfiguration(extensionName).get<Boolean>("onSave");
   if (runOnSave) {
     if (didSaveTextDisposable != null) {
       // Already created, no need to recreate
       return;
     }
 
-    didSaveTextDisposable = vscode.workspace.onDidSaveTextDocument(
-      (document: vscode.TextDocument) => {
-        return sortDocument(document, true);
-      }
-    );
+    didSaveTextDisposable = vscode.workspace.onDidSaveTextDocument((document: vscode.TextDocument) => {
+      return sortDocument(document, true);
+    });
     context.subscriptions.push(didSaveTextDisposable);
   } else {
     if (didSaveTextDisposable == null) {
@@ -68,9 +62,7 @@ function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
 async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
   const sortier = await findSortier();
   if (sortier == null) {
-    vscode.window.showInformationMessage(
-      "Unable to find sortier instance to use"
-    );
+    vscode.window.showInformationMessage("Unable to find sortier instance to use");
     return;
   }
   try {
@@ -114,18 +106,10 @@ function getStringFromThrown(e: unknown) {
 
 function fullDocumentRange(document: vscode.TextDocument): vscode.Range {
   const lastLineId = document.lineCount - 1;
-  return new vscode.Range(
-    0,
-    0,
-    lastLineId,
-    document.lineAt(lastLineId).text.length
-  );
+  return new vscode.Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
 }
 
-function isDocumentIgnored(
-  sortier: SortierFunctions,
-  document: vscode.TextDocument
-): vscode.ProviderResult<boolean> {
+function isDocumentIgnored(sortier: SortierFunctions, document: vscode.TextDocument): vscode.ProviderResult<boolean> {
   const uri = document.uri || vscode.workspace.workspaceFolders?.[0].uri;
   const relativeFilePath = vscode.workspace.asRelativePath(uri);
 
@@ -143,37 +127,32 @@ function isDocumentIgnored(
   });
 }
 
-function getResolveOptionsForDocument(
-  sortier: SortierFunctions,
-  document: vscode.TextDocument
-) {
+function getResolveOptionsForDocument(sortier: SortierFunctions, document: vscode.TextDocument) {
   const uri = document.uri || vscode.workspace.workspaceFolders?.[0].uri;
   const options = sortier.resolveOptions(uri.fsPath);
   return options;
 }
 
 function findSortier(): vscode.ProviderResult<SortierFunctions> {
-  return vscode.workspace
-    .findFiles("**/node_modules/sortier/dist/index.js")
-    .then((fileMatches) => {
-      const defaultResult = {
-        formatText,
-        isIgnored,
-        resolveOptions,
-      };
-      if (fileMatches.length === 0) {
-        return defaultResult;
-      }
+  return vscode.workspace.findFiles("node_modules/sortier/dist/lib/index.js").then((fileMatches) => {
+    const defaultResult = {
+      formatText,
+      isIgnored,
+      resolveOptions,
+    };
+    if (fileMatches.length === 0) {
+      return defaultResult;
+    }
 
-      const { path, scheme } = fileMatches[0];
-      return import(`${scheme}://${path}`)
-        .then((localSortier) => {
-          return localSortier as SortierFunctions;
-        })
-        .catch(() => {
-          return defaultResult;
-        });
-    });
+    const { path, scheme } = fileMatches[0];
+    return import(`${scheme}://${path}`)
+      .then((localSortier) => {
+        return localSortier as SortierFunctions;
+      })
+      .catch(() => {
+        return defaultResult;
+      });
+  });
 }
 
 const getLanguageExtension = (languageId: string) =>

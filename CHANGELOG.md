@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Removed dependency `vscode` in favor of `@types/vscode`
+- Fixed local version of sortier not being detected correctly
 
 ## [2.0.3] - 2021-12-23
 
