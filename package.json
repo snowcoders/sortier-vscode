@@ -69,18 +69,20 @@
     "url": "https://github.com/snowcoders/sortier-vscode.git"
   },
   "scripts": {
-    "build": "npm run compile",
+    "build": "npm run build:prod",
+    "build:after-esm-implemented": "tsc -p ./",
+    "build:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fs --external:typescript --format=cjs --platform=node",
+    "build:dev": "npm run build:base -- --sourcemap",
+    "build:prod": "npm run build:base -- --minify",
     "clean": "rimraf dist",
-    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fs --external:typescript --format=cjs --platform=node --sourcemap",
-    "compile:after-esm-implemented": "tsc -p ./",
     "husky:commit-msg": "echo 'No commitlint installed'",
     "husky:pre-commit": "npx --no lint-staged",
     "husky:pre-push": "npm run test",
-    "lint": "eslint src --ext ts",
     "prepare": "npm run clean && npm run build && npx --no-install husky install",
     "test": "echo 'No tests, be sure to run manual tests'",
-    "vscode:prepublish": "npm run compile",
-    "watch": "npm run compile -- --watch"
+    "vsce": "vsce",
+    "vscode:prepublish": "npm run build:prod",
+    "watch": "npm run build:dev -- --watch"
   },
   "version": "2.0.3"
 }
