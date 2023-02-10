@@ -71,7 +71,7 @@
   "scripts": {
     "build": "npm run compile",
     "clean": "rimraf dist",
-    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fs --external:typescript --format=cjs --platform=node",
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fs --external:typescript --format=cjs --platform=node --sourcemap",
     "compile:after-esm-implemented": "tsc -p ./",
     "husky:commit-msg": "echo 'No commitlint installed'",
     "husky:pre-commit": "npx --no lint-staged",
@@ -80,7 +80,7 @@
     "prepare": "npm run clean && npm run build && npx --no-install husky install",
     "test": "echo 'No tests, be sure to run manual tests'",
     "vscode:prepublish": "npm run compile",
-    "watch": "tsc -watch -p ./"
+    "watch": "npm run compile -- --watch"
   },
   "version": "2.0.3"
 }
