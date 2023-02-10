@@ -8,7 +8,7 @@
       "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"],
       "name": "Run Extension",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "npm: build",
+      "preLaunchTask": "npm: build:dev",
       "request": "launch",
       "type": "extensionHost"
     },
@@ -19,7 +19,7 @@
       ],
       "name": "Extension Tests",
       "outFiles": ["${workspaceFolder}/dist/test/**/*.js"],
-      "preLaunchTask": "npm: build",
+      "preLaunchTask": "npm: build:dev",
       "request": "launch",
       "type": "extensionHost"
     }
