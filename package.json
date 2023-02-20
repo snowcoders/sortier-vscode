@@ -72,7 +72,7 @@
   "scripts": {
     "build": "npm run build:prod",
     "build:after-esm-implemented": "tsc -p ./",
-    "build:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fs --external:typescript --format=cjs --platform=node",
+    "build:base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:typescript --format=cjs --platform=node",
     "build:dev": "npm run build:base -- --sourcemap",
     "build:prod": "npm run build:base -- --minify",
     "clean": "rimraf dist",
