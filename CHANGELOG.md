@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.5] - 2023-02-20
+
+- Fixed `sortier.run` failing on user execution
+
 ## [2.0.4] - 2023-02-20
 
 - Increased minimum vscode version to 1.70.0
