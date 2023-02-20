@@ -33,7 +33,7 @@
     "@snowcoders/renovate-config": "3.0.0-beta.13",
     "@types/estree": "1.0.0",
     "@types/node": "18.14.0",
-    "@types/vscode": "1.60.0",
+    "@types/vscode": "1.70.0",
     "@typescript-eslint/eslint-plugin": "5.52.0",
     "@typescript-eslint/parser": "5.52.0",
     "@vscode/vsce": "2.17.0",
@@ -52,7 +52,7 @@
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.70.0"
   },
   "homepage": "https://github.com/snowcoders/sortier-vscode",
   "keywords": [

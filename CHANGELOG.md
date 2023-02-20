@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.4] - 2023-02-20
 
+- Increased minimum vscode version to 1.70.0
 - Fixed local version of sortier not being detected correctly
 
 ## [2.0.3] - 2021-12-23
