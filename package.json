@@ -1,6 +1,7 @@
 {
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:sortier.run"
   ],
   "bugs": {
     "url": "https://github.com/sortier/sortier-vscode/issues"
