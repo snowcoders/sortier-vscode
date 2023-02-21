@@ -73,8 +73,8 @@ function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
 async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
   const sortier = await findSortier();
   if (sortier == null) {
-    outputConsole.debug("Find sortier failed to provide a result");
-    vscode.window.showInformationMessage("Unable to find sortier instance to use");
+    outputConsole.debug("findSortier failed to provide a result");
+    vscode.window.showInformationMessage("Unable to find instance of sortier to use");
     return;
   }
   try {
@@ -152,31 +152,52 @@ function getResolveOptionsForDocument(sortier: SortierFunctions, document: vscod
   return options;
 }
 
-function findSortier(): vscode.ProviderResult<SortierFunctions> {
-  outputConsole.debug("Searching for sortier in local node_modules");
-  return vscode.workspace.findFiles("node_modules/sortier/dist/lib/index.js").then((fileMatches) => {
-    const defaultResult = {
-      formatText,
-      isIgnored,
-      resolveOptions,
-    };
-    if (fileMatches.length === 0) {
-      outputConsole.debug("None found, using extension version");
-      return defaultResult;
-    }
+async function findSortier(): Promise<SortierFunctions> {
+  const defaultResult = {
+    formatText,
+    isIgnored,
+    resolveOptions,
+  };
 
-    const { path, scheme } = fileMatches[0];
-    outputConsole.debug("Attempting to load local node_module/sortier");
-    return import(`${scheme}://${path}`)
-      .then((localSortier) => {
-        outputConsole.debug("Success, using local node_module/sortier");
-        return localSortier as SortierFunctions;
-      })
-      .catch(() => {
-        outputConsole.debug("Failed, using extension version");
-        return defaultResult;
-      });
-  });
+  const esmResult = await findLocalPackage<SortierFunctions>("node_modules/sortier/dist/lib/index.js");
+  if (esmResult) {
+    return esmResult;
+  }
+  const cjsResult = await findLocalPackage<SortierFunctions>("node_modules/sortier/dist-cjs/lib/index.js");
+  if (cjsResult) {
+    return cjsResult;
+  }
+
+  outputConsole.debug("Use extension sortier version");
+  return defaultResult;
+}
+
+async function findLocalPackage<T>(nodeModulesPath: string): Promise<null | T> {
+  outputConsole.debug("Searching for sortier at", nodeModulesPath);
+  const fileMatches = await vscode.workspace.findFiles(nodeModulesPath);
+  if (fileMatches.length === 0) {
+    outputConsole.debug("None found");
+    return null;
+  }
+
+  const { path, scheme } = fileMatches[0];
+  try {
+    outputConsole.debug("Attempting import");
+    const localSortierImport = await import(`${scheme}://${path}`);
+    outputConsole.debug("Success");
+    return localSortierImport as T;
+  } catch {
+    outputConsole.debug("Failed");
+    outputConsole.debug("Attempting require", nodeModulesPath);
+    try {
+      const requireResult = require("sortier");
+      outputConsole.debug("Success");
+      return requireResult;
+    } catch {
+      outputConsole.debug("Failed");
+      return null;
+    }
+  }
 }
 
 const getLanguageExtension = (languageId: string) =>
