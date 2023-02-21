@@ -11,6 +11,16 @@ type SortierFunctions = {
   resolveOptions: typeof resolveOptions;
 };
 const extensionName = "sortier";
+const outputChannel = vscode.window.createOutputChannel("Sortier");
+type LogMessageParameters = Parameters<(typeof console)["log"]>;
+function writeLog(level: "debug" | "error" | "warn", ...messages: LogMessageParameters) {
+  outputChannel.appendLine(`[${level}] ${messages.join(" ")}`);
+}
+const outputConsole = {
+  debug: (...messages: LogMessageParameters) => writeLog("debug", ...messages),
+  error: (...messages: LogMessageParameters) => writeLog("error", ...messages),
+  warn: (...messages: LogMessageParameters) => writeLog("warn", ...messages),
+};
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -22,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The code you place here will be executed every time your command is executed
     var editor = vscode.window.activeTextEditor;
     if (!editor) {
+      outputConsole.debug("No active document");
       vscode.window.showInformationMessage("No active document. Nothing was sorted.");
       return;
     }
@@ -62,17 +73,24 @@ function loadOnSaveConfiguration(context: vscode.ExtensionContext) {
 async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
   const sortier = await findSortier();
   if (sortier == null) {
+    outputConsole.debug("Find sortier failed to provide a result");
     vscode.window.showInformationMessage("Unable to find sortier instance to use");
     return;
   }
   try {
     if (isOnSave && (await isDocumentIgnored(sortier, document))) {
+      outputConsole.debug("Document is ignored, skipping");
       return;
     }
+    outputConsole.debug("Document is not ignored, sorting");
     const oldText = document.getText();
     const options = getResolveOptionsForDocument(sortier, document);
+    outputConsole.debug(`Resolved options: ${JSON.stringify(options)}`);
     const fileExtension = getFileExtension(document);
+    outputConsole.debug(`Resolved file extension: ${fileExtension}`);
+    outputConsole.debug("Sorting starting");
     const newText = sortier.formatText(fileExtension, oldText, options);
+    outputConsole.debug("Sorting complete");
     if (newText == null || oldText === newText) {
       return;
     }
@@ -81,6 +99,7 @@ async function sortDocument(document: vscode.TextDocument, isOnSave: boolean) {
     const documentRange = fullDocumentRange(document);
     edits.replace(document.uri, documentRange, newText);
 
+    outputConsole.debug("Applying edits to vscode");
     vscode.workspace.applyEdit(edits).then(() => {
       if (isOnSave) {
         document.save();
@@ -134,6 +153,7 @@ function getResolveOptionsForDocument(sortier: SortierFunctions, document: vscod
 }
 
 function findSortier(): vscode.ProviderResult<SortierFunctions> {
+  outputConsole.debug("Searching for sortier in local node_modules");
   return vscode.workspace.findFiles("node_modules/sortier/dist/lib/index.js").then((fileMatches) => {
     const defaultResult = {
       formatText,
@@ -141,15 +161,19 @@ function findSortier(): vscode.ProviderResult<SortierFunctions> {
       resolveOptions,
     };
     if (fileMatches.length === 0) {
+      outputConsole.debug("None found, using extension version");
       return defaultResult;
     }
 
     const { path, scheme } = fileMatches[0];
+    outputConsole.debug("Attempting to load local node_module/sortier");
     return import(`${scheme}://${path}`)
       .then((localSortier) => {
+        outputConsole.debug("Success, using local node_module/sortier");
         return localSortier as SortierFunctions;
       })
       .catch(() => {
+        outputConsole.debug("Failed, using extension version");
         return defaultResult;
       });
   });
