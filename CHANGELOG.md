@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added custom output channel and logging to help debug issues
+
 ## [2.0.5] - 2023-02-20
 
 - Fixed `sortier.run` failing on user execution
