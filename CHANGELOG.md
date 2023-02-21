@@ -7,22 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.8] - 2023-02-21
-
-- Fixed support with sortier@1.0.1
-
-## [2.0.7] - 2023-02-21
-
-## [2.0.6] - 2023-02-21
-
+- Builds between current and 2.0.3 were pre-release, individual changelogs can be found per package
 - Added custom output channel and logging to help debug issues
-
-## [2.0.5] - 2023-02-20
-
-- Fixed `sortier.run` failing on user execution
-
-## [2.0.4] - 2023-02-20
-
 - Increased minimum vscode version to 1.70.0
 - Fixed local version of sortier not being detected correctly
 
