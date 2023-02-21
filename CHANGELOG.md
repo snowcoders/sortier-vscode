@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.9] - 2023-02-21
+
 - Builds between current and 2.0.3 were pre-release, individual changelogs can be found per package
 - Added custom output channel and logging to help debug issues
 - Increased minimum vscode version to 1.70.0
