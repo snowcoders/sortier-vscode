@@ -87,5 +87,5 @@
     "vscode:prepublish": "npm run build:prod",
     "watch": "npm run build:dev -- --watch"
   },
-  "version": "2.0.6"
+  "version": "2.0.7"
 }
