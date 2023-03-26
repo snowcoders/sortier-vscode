@@ -39,7 +39,7 @@
     "@typescript-eslint/parser": "5.56.0",
     "@vscode/vsce": "2.18.0",
     "changelog-updater": "2.0.3",
-    "esbuild": "0.17.13",
+    "esbuild": "0.17.14",
     "eslint": "8.36.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
