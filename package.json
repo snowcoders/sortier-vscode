@@ -53,7 +53,7 @@
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
-    "vscode": "^1.70.0"
+    "vscode": "^2023.0.0"
   },
   "homepage": "https://github.com/snowcoders/sortier-vscode",
   "keywords": [
