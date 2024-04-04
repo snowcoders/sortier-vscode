@@ -49,7 +49,7 @@
     "prettier": "3.2.5",
     "rimraf": "5.0.5",
     "sortier": "2.0.2",
-    "typescript": "5.4.3"
+    "typescript": "5.4.4"
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
