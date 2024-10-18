@@ -37,7 +37,7 @@
     "@types/vscode": "1.70.0",
     "@typescript-eslint/eslint-plugin": "8.10.0",
     "@typescript-eslint/parser": "8.10.0",
-    "@vscode/vsce": "3.1.1",
+    "@vscode/vsce": "3.2.0",
     "changelog-updater": "2.0.3",
     "esbuild": "0.24.0",
     "eslint": "9.12.0",
