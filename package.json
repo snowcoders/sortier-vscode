@@ -79,7 +79,7 @@
     "husky:commit-msg": "echo 'No commitlint installed'",
     "husky:pre-commit": "npx --no lint-staged",
     "husky:pre-push": "npm run test",
-    "prepare": "npm run clean && npm run build && npx --no-install husky install",
+    "prepare": "npm run clean && npm run build && npx --no-install husky",
     "test": "echo 'No tests, be sure to run manual tests'",
     "version": "changelog-updater && git add .",
     "vsce": "vsce",
