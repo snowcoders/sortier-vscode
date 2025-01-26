@@ -1,7 +1,6 @@
 {
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:sortier.run"
+    "onStartupFinished"
   ],
   "bugs": {
     "url": "https://github.com/sortier/sortier-vscode/issues"
@@ -53,7 +52,7 @@
   },
   "displayName": "Sortier - Code sorter",
   "engines": {
-    "vscode": "^2023.0.0"
+    "vscode": "^1.75.0"
   },
   "homepage": "https://github.com/snowcoders/sortier-vscode",
   "keywords": [
