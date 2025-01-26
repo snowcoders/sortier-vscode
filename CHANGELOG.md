@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Increase minimum VS Code version to ^1.75.0
+- Bumped built in version of sortier to 2.1.0 (you can continue to have a custom version installed)
+
 ## [2.0.9] - 2023-02-21
 
 - Builds between current and 2.0.3 were pre-release, individual changelogs can be found per package
