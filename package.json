@@ -47,7 +47,7 @@
     "lint-staged": "15.4.3",
     "prettier": "3.5.3",
     "rimraf": "6.0.1",
-    "sortier": "2.1.0",
+    "sortier": "2.1.1",
     "typescript": "5.8.2"
   },
   "displayName": "Sortier - Code sorter",
