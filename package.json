@@ -39,7 +39,7 @@
     "@vscode/vsce": "3.2.2",
     "changelog-updater": "2.0.3",
     "esbuild": "0.25.0",
-    "eslint": "9.21.0",
+    "eslint": "9.22.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-prettier": "5.2.3",
