@@ -45,7 +45,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "rimraf": "6.1.3",
     "sortier": "2.1.1",
     "typescript": "5.8.3"
