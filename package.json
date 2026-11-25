@@ -31,7 +31,7 @@
   "description": "Code sorting via sortier",
   "devDependencies": {
     "@snowcoders/renovate-config": "3.0.0-beta.17",
-    "@types/estree": "1.0.10",
+    "@types/estree": "1.0.11",
     "@types/node": "26.6.7",
     "@types/vscode": "1.70.0",
     "@typescript-eslint/eslint-plugin": "8.29.0",
